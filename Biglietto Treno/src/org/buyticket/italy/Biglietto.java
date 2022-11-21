@@ -18,8 +18,8 @@ public class Biglietto {
 	private static int FLEXIBLE = 90;
 	
 	Biglietto(int userKm, int userAge, boolean flexible) throws Exception{
-		isValidKm(userKm);
-		isValidEta(userAge);
+		setUserKm(userKm);
+		setUserAge(userAge);
 		this.date = LocalDate.now();
 		this.flexible = flexible;
 	}
@@ -28,7 +28,10 @@ public class Biglietto {
 		return userKm;
 	}
 
-	public void setUserKm(int userKm) {
+	public void setUserKm(int userKm) throws Exception{
+		if(isValidKm(userKm)) {
+			throw new Exception("Kilometers must be positive number");
+		}
 		this.userKm = userKm;
 	}
 
@@ -36,7 +39,10 @@ public class Biglietto {
 		return userAge;
 	}
 
-	public void setUserAge(int userAge) {
+	public void setUserAge(int userAge) throws Exception{
+		if(isValidEta(userAge)) {
+			throw new Exception("L'età deve essere maggiore di 0");
+		}
 		this.userAge = userAge;
 	}
 	
@@ -52,20 +58,12 @@ public class Biglietto {
 		return YOUNG_DISCOUNT;
 	}
 	
-	public void isValidKm(int km) throws Exception {
-		if(km <= 0) {
-			throw new Exception("Kilometers must be positive number");
-		} else {
-			this.userKm = km;
-		}
+	private boolean isValidKm(int km) {
+        return km<0;
 	}
 	
-	public void isValidEta(int eta) throws Exception {
-		if (eta <= 0) {
-			throw new Exception("Age must be positive and not equal to 0");
-		} else {
-			this.userAge = eta;
-		}
+	private boolean isValidEta(int eta) {
+		return eta<0;
 	}
 	
 	private BigDecimal getDiscount() {
@@ -79,7 +77,11 @@ public class Biglietto {
 	}
 	
 	public BigDecimal getTicketPrice() {
-		return getDiscount().multiply(BigDecimal.valueOf(userKm));
+		if(flexible) {
+			return getDiscount().multiply(BigDecimal.valueOf(userKm).multiply(FLEXIBLE_PRICE));			
+		} else {
+			return getDiscount().multiply(BigDecimal.valueOf(userKm));
+		}
 	}
 	
 	public String getTicketPriceFormatted() {
@@ -100,7 +102,7 @@ public class Biglietto {
     	return "Km: " + getUserKm()
     			+ "\nEtà: " + getUserAge()
                 + "\nPrezzo: " + getTicketPriceFormatted() + "€"
-                + "\nBiglietto flessibile: " + (flexible ? "sì" : "no")
+                + "\nBiglietto flessibile: " + (flexible ? "si" : "no")
                 + "\nData di scadenza biglietto: " + getExpirationDate();
     }
 }
