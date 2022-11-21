@@ -18,7 +18,7 @@ public class Biglietteria {
 		
 		sc.close();
 		
-		System.out.println("----------");
+		System.out.println("\n----------\n");
 		
 		Biglietto b1 = null;
 		try {
