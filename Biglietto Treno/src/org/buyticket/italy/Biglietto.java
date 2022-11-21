@@ -1,19 +1,27 @@
 package org.buyticket.italy;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 public class Biglietto {
 	
 	private int userKm = 0;
 	private int userAge = 0;
+	private LocalDate date;
+	private boolean flexible;
 	
 	private static final BigDecimal PRICE_FOR_KM = new BigDecimal(0.21);
 	private static final BigDecimal OVER_65_DISCOUNT = new BigDecimal(0.6);
 	private static final BigDecimal YOUNG_DISCOUNT = new BigDecimal(0.8);
+	private static final BigDecimal FLEXIBLE_PRICE = new BigDecimal(1.10);
+	private static int NORMAL = 30;
+	private static int FLEXIBLE = 90;
 	
-	Biglietto(int userKm, int userAge) throws Exception{
+	Biglietto(int userKm, int userAge, boolean flexible) throws Exception{
 		isValidKm(userKm);
 		isValidEta(userAge);
+		this.date = LocalDate.now();
+		this.flexible = flexible;
 	}
 
 	public int getUserKm() {
@@ -45,7 +53,7 @@ public class Biglietto {
 	}
 	
 	public void isValidKm(int km) throws Exception {
-		if(km < 0) {
+		if(km <= 0) {
 			throw new Exception("Kilometers must be positive number");
 		} else {
 			this.userKm = km;
@@ -79,10 +87,20 @@ public class Biglietto {
 		return String.format("%.2f", priceToDouble);
 	}
 	
+	public LocalDate getExpirationDate() {
+		if(flexible) {
+			return date.plusDays(FLEXIBLE);
+		} else {
+			return date.plusDays(NORMAL);
+		}
+	}
+	
 	@Override
     public String toString() {
     	return "Km: " + getUserKm()
     			+ "\nEtà: " + getUserAge()
-                + "\nPrezzo: " + getTicketPriceFormatted() + "€";
+                + "\nPrezzo: " + getTicketPriceFormatted() + "€"
+                + "\nBiglietto flessibile: " + (flexible ? "sì" : "no")
+                + "\nData di scadenza biglietto: " + getExpirationDate();
     }
 }
