@@ -13,13 +13,16 @@ public class Biglietteria {
 		System.out.println("Inserire età passeggero: ");
 		int userAge = sc.nextInt();
 		
+		System.out.print("Biglietto flessibile: ");
+		boolean flexible = sc.nextBoolean();
+		
 		sc.close();
 		
 		System.out.println("----------");
 		
 		Biglietto b1 = null;
 		try {
-			b1 = new Biglietto(userKm, userAge);
+			b1 = new Biglietto(userKm, userAge, flexible);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
