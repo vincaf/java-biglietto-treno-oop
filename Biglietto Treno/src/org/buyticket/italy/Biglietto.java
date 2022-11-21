@@ -70,5 +70,7 @@ public class Biglietto {
 		}
 	}
 	
-	
+	public BigDecimal getTicketPrice() {
+		return getDiscount().multiply(BigDecimal.valueOf(userKm));
+	}
 }
