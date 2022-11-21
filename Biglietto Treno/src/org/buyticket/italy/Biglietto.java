@@ -11,7 +11,7 @@ public class Biglietto {
 	private static final BigDecimal OVER_65_DISCOUNT = new BigDecimal(0.6);
 	private static final BigDecimal YOUNG_DISCOUNT = new BigDecimal(0.8);
 	
-	Biglietto(int userKm, int userAge, boolean flexible) throws Exception{
+	Biglietto(int userKm, int userAge) throws Exception{
 		isValidKm(userKm);
 		isValidEta(userAge);
 	}
