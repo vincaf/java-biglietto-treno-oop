@@ -73,4 +73,9 @@ public class Biglietto {
 	public BigDecimal getTicketPrice() {
 		return getDiscount().multiply(BigDecimal.valueOf(userKm));
 	}
+	
+	public String getTicketPriceFormatted() {
+		double priceToDouble = getTicketPrice().doubleValue();
+		return String.format("%.2f", priceToDouble);
+	}
 }
