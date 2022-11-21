@@ -59,4 +59,16 @@ public class Biglietto {
 			this.userAge = eta;
 		}
 	}
+	
+	private BigDecimal getDiscount() {
+		if(userAge < 18) {
+			return YOUNG_DISCOUNT.multiply(PRICE_FOR_KM);
+		} else if(userAge > 65) {
+			return OVER_65_DISCOUNT.multiply(PRICE_FOR_KM);
+		} else {
+			return PRICE_FOR_KM;
+		}
+	}
+	
+	
 }
