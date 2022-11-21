@@ -78,4 +78,11 @@ public class Biglietto {
 		double priceToDouble = getTicketPrice().doubleValue();
 		return String.format("%.2f", priceToDouble);
 	}
+	
+	@Override
+    public String toString() {
+    	return "Km: " + getUserKm()
+    			+ "\nEtà: " + getUserAge()
+                + "\nPrezzo: " + getTicketPriceFormatted() + "€";
+    }
 }
